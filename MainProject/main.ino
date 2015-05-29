@@ -27,7 +27,6 @@ void setup()
   pinMode(btn3, INPUT);
   pinMode(btn4, INPUT);
   
-  Temp = 25;
   pinMode(US, OUTPUT);
   digitalWrite(US, LOW);
   
@@ -80,39 +79,34 @@ byte bcdToDec(byte val)  {
 
 void display_mode() //1버튼으로 모드설정
 {
-  if(digitalRead(btn1)==0)
-  mode_cnt++;
+  if(digitalRead(btn1)==0)	mode_cnt++;
   
-  switch(mode_cnt)
-  {
+  switch(mode_cnt) {
     case 0: count_mode(); sonic();  break;
     case 1: pw_mode();  break;
   }
   
-  if(mode_cnt>1)
-  mode_cnt=0;
+  if(mode_cnt>1) mode_cnt=0;
 }
 
 void count_mode() //2버튼으로 count FND 모드설정
 {
-  if(digitalRead(btn2)==0)
-  mode_cnt1++;
+  if(digitalRead(btn2)==0) mode_cnt1++;
   
-  switch(mode_cnt1)
-  {
+  switch(mode_cnt1) {
     case 0: one(); LED0();  break;
     case 1: two(); LED1(); break;
     case 2: three(); LED2(); break;
     case 3: four(); LED3(); break; 
   }
   
-  if(mode_cnt1>3)
-  mode_cnt1=0;
+  if(mode_cnt1>3) mode_cnt1=0;
 }
 
 void sonic() //초음파 거리로 LCD표현
 {
    delay(500);
+   pinMode(US, OUTPUT);
    digitalWrite(US, HIGH);
    delayMicroseconds(10);
    digitalWrite(US, LOW);
@@ -120,7 +114,7 @@ void sonic() //초음파 거리로 LCD표현
    pinMode(US, INPUT);
    duration = pulseIn(US, HIGH);
    
-   Distance = (331.5 + 0.607 * Temp) * ( duration * 0.001 / 2 )/10;
+   Distance = (331.5 + 0.607 * 25) * ( duration * 0.001 / 2 )/10;
    
    if (Distance <= 15) //15cm 이하 일 경우 LCD
    {
@@ -150,30 +144,25 @@ void sonic() //초음파 거리로 LCD표현
 
 void pw_mode() //2버튼으로 pw FND 모드설정
 {
-  
   lcd.clear();
   lcd.setCursor(0,0);
   lcd.print("PassWord");
   lcd.setCursor(0,1);
   lcd.print("Setting");
   
-  if(digitalRead(btn2)==0)
-  mode_cnt2++;
+  if(digitalRead(btn2)==0) mode_cnt2++;
     
-  switch(mode_cnt2)
-  {
+  switch(mode_cnt2) {
     case 0: one1(); LED0();  break;
     case 1: two1(); LED1(); break;
     case 2: three1(); LED2(); break;
     case 3: four1(); LED3(); break; 
   }
-  if(mode_cnt2>3)
-  mode_cnt2=0;
+  if(mode_cnt2>3) mode_cnt2=0;
 }
 
 void play() //count와 pw를 비교하여 LCD표시
-{
-  //count와 pw가 같으면 열림
+{ 			//count와 pw가 같으면 열림
   if (count == pw && count1 ==pw1 && count2 ==pw2 && count3 ==pw3)
   {
     lcd.clear();
@@ -292,22 +281,18 @@ void one()
 {
   Wire_init();
   
-  if(count>=10)
-  {
+  if(count>=10) {
     count=0;
   }
   
-  else if(digitalRead(btn3)==0)
-  {
+  else if(digitalRead(btn3)==0) {
     count++;
   }
   
-  if(count<0)
-  {
+  if(count<0) {
     count=9;
   }
-  else if(digitalRead(btn4)==0)
-  {
+  else if(digitalRead(btn4)==0 {
     count--;
   }
   
@@ -318,22 +303,18 @@ void two()
 {
   Wire_init();
   
-  if(count1>=10)
-  {
+  if(count1>=10) {
     count1=0;
   }
   
-  else if(digitalRead(btn3)==0)
-  {
+  else if(digitalRead(btn3)==0) {
     count1++;
   }
   
-  if(count1<0)
-  {
+  if(count1<0) {
     count1=9;
   }
-  else if(digitalRead(btn4)==0)
-  {
+  else if(digitalRead(btn4)==0) {
     count1--;
   }
   
@@ -344,22 +325,18 @@ void three()
 {
   Wire_init();
   
-  if(count2>=10)
-  {
+  if(count2>=10) {
     count2=0;
   }
   
-  else if(digitalRead(btn3)==0)
-  {
+  else if(digitalRead(btn3)==0) {
     count2++;
   }
   
-  if(count2<0)
-  {
+  if(count2<0) {
     count2=9;
   }
-  else if(digitalRead(btn4)==0)
-  {
+  else if(digitalRead(btn4)==0) {
     count2--;
   }
   
@@ -370,22 +347,18 @@ void four()
 {
   Wire_init();
   
-  if(count3>=10)
-  {
+  if(count3>=10) {
     count3=0;
   }
   
-  else if(digitalRead(btn3)==0)
-  {
+  else if(digitalRead(btn3)==0) {
     count3++;
   }
   
-  if(count3<0)
-  {
+  if(count3<0) {
     count3=9;
   }
-  else if(digitalRead(btn4)==0)
-  {
+  else if(digitalRead(btn4)==0) {
     count3--;
   }
   
@@ -396,102 +369,75 @@ void one1() //1번째자리 pw FND
 {
   Wire_init();
   
-  if(pw>=10)
-  { 
+  if(pw>=10) { 
     pw=0;
   }
-  else if(digitalRead(btn3)==0)
-  {
+  else if(digitalRead(btn3)==0) {
     pw++;
   }
-  if(pw<0)
-  { 
+  if(pw<0) { 
     pw=9;
   }
-  else if(digitalRead(btn4)==0)
-  {
+  else if(digitalRead(btn4)==0) {
     pw--;
   }
   
-  {
     wire_lookuppw();
-  }
 }
 
 void two1() //2번째자리 pw FND
 {
   Wire_init();
   
-  if(pw1>=10)
-  { 
+  if(pw1>=10) { 
     pw1=0;
   }
-  else if(digitalRead(btn3)==0)
-  {
+  else if(digitalRead(btn3)==0) {
     pw1++;
   }
-  if(pw1<0)
-  { 
+  if(pw1<0) { 
     pw1=9;
   }
-  else if(digitalRead(btn4)==0)
-  {
+  else if(digitalRead(btn4)==0) {
     pw1--;
   }
-  
-  {
     wire_lookuppw();
-  }
 }
 
 void three1() //3번째자리 pw FND
 {
   Wire_init();
   
-  if(pw2>=10)
-  { 
+  if(pw2>=10) { 
     pw2=0;
   }
-  else if(digitalRead(btn3)==0)
-  {
+  else if(digitalRead(btn3)==0) {
     pw2++;
   }
-  if(pw2<0)
-  { 
+  if(pw2<0) { 
     pw2=9;
   }
-  else if(digitalRead(btn4)==0)
-  {
+  else if(digitalRead(btn4)==0) {
     pw2--;
   }
-  
-  {
     wire_lookuppw();
-  }
 }
 
 void four1() //4번째자리 pw FND
 {
   Wire_init();
   
-  if(pw3>=10)
-  { 
+  if(pw3>=10) { 
     pw3=0;
   }
-  else if(digitalRead(btn3)==0)
-  {
+  else if(digitalRead(btn3)==0) {
     pw3++;
   }
-  if(pw3<0)
-  { 
+  if(pw3<0) { 
     pw3=9;
   }
-  else if(digitalRead(btn4)==0)
-  {
+  else if(digitalRead(btn4)==0) {
     pw3--;
   }
-  
-  {
     wire_lookuppw();
-  }
 }
