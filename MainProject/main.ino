@@ -15,7 +15,8 @@ const int lookup[10] = {0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F};
 
 unsigned char mode = 3;
 unsigned long duration;
-int mode_cnt = 0, mode_cnt1 = 0, mode_cnt2 = 0, count, count1, count2, count3, pw, pw1, pw2, pw3, cnt = 0, dummcnt, Distance, Temp;
+int mode_cnt = 0, mode_cnt1 = 0, mode_cnt2 = 0, count, count1, count2, count3;
+int pw, pw1, pw2, pw3, cnt = 0, dummcnt, Distance, Temp;
 
 void setup() 
 {
